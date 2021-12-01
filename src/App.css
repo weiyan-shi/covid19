@@ -1,38 +1,45 @@
+
+@import '~antd/dist/antd.css';
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.site-page-header{
+  height: 70px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main-wrapper{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 100%;
+  justify-content: space-between;
+  height: calc(100vh - 70px);
 }
 
-.App-link {
-  color: #61dafb;
+.ant-menu{
+  height: 100%;
+}
+.ant-menu-horizontal{
+  display: flex;
+  justify-content: space-between;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Global{
+  width: calc(100% - 256px);
+}
+
+.Global-menu{
+  height: 50px;
+  width: 100%;
+}
+
+.global-menu-item{
+  width: calc(100% / 4);
+  text-align: center;
+}
+
+.site-card-wrapper{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
