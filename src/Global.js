@@ -1,7 +1,7 @@
 import { Menu } from "antd";
 import { useState } from "react";
 import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
-import { Card, Col, Row } from "antd";
+import { Card } from "antd";
 import "./App.css";
 
 const Global = () => {
