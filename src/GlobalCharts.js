@@ -43,7 +43,7 @@ const lineOption = {
 const cakeOption = {
   tooltip: {
     show: true,
-    trigger: "item", // 触发方式
+    trigger: "item",
     formatter: "{a} <br/>{b} : {c} ({d}%)",
   },
   legend: {

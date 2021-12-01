@@ -1,9 +1,12 @@
 import { Select, Menu } from "antd";
 import { useState } from "react";
 import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
-import { AddLineChart, ConfirmCakeChart, SumColumnChart } from "./GlobalCharts";
+import {
+  ProportionLineChart,
+  AddColumnChart,
+  SumColumnChart,
+} from "./CountryCharts";
 import "./App.css";
-import { COMPARISON_BINARY_OPERATORS } from "@babel/types";
 
 const { Option } = Select;
 
@@ -13,9 +16,9 @@ const Country = () => {
 
   console.log(countryCurrent);
   const component = {
-    1: <AddLineChart />,
+    1: <AddColumnChart />,
     2: <SumColumnChart />,
-    3: <ConfirmCakeChart />,
+    3: <ProportionLineChart />,
   };
   const options = [
     {
@@ -112,6 +115,7 @@ const Country = () => {
     <div className="Country">
       <SelectCountry />
       <HorizontalMenu />
+      {component[current]}
     </div>
   );
 };
