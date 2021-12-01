@@ -45,5 +45,24 @@
 }
 
 .line-chart{
-  margin-top: 100px;
+  margin-top: 50px;
+}
+
+.Country{
+  width: calc(100% - 256px);
+}
+
+.select-box{
+  width: 80%;
+}
+
+.Country-menu{
+  margin-top: 30px;
+  height: 50px;
+  width: 100%;
+}
+
+.country-menu-item{
+  width: calc(100% / 3);
+  text-align: center;
 }

@@ -2,19 +2,22 @@ import { Menu } from "antd";
 import { useState } from "react";
 import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
 import { Card } from "antd";
-import { AddLineChart, ConfirmCakeChart } from "./GlobalCharts";
+import {
+  AddLineChart,
+  ConfirmCakeChart,
+  SumColumnChart,
+  CountryList,
+} from "./GlobalCharts";
 import "./App.css";
 
 const Global = () => {
   const myDate = new Date();
   const [current, setCurrent] = useState("1");
-  //   const [component, setComponent] = useState(<AddLineChart />);
-
   const component = {
     1: <AddLineChart />,
-    2: <ConfirmCakeChart />,
+    2: <SumColumnChart />,
     3: <ConfirmCakeChart />,
-    4: <ConfirmCakeChart />,
+    4: <CountryList />,
   };
 
   const DataCards = () => {
