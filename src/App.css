@@ -34,7 +34,7 @@
 }
 
 .global-menu-item{
-  width: calc(100% / 4);
+  width: calc(80% / 4);
   text-align: center;
 }
 
@@ -63,6 +63,6 @@
 }
 
 .country-menu-item{
-  width: calc(100% / 3);
+  width: calc(80% / 3);
   text-align: center;
 }
