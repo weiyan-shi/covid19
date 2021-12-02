@@ -91,7 +91,7 @@ const Country = () => {
 
   const SelectCountry = () => {
     return (
-      <Cascader options={options} onChange={(e) => { setCountryCurrent(e); console.log(e) }} defaultValue={countryCurrent} placeholder="请选择国家/省份" />
+      <Cascader options={options} onChange={(e) => { setCountryCurrent(e) }} defaultValue={countryCurrent} placeholder="请选择国家/省份" allowClear={false} />
     );
   };
 
