@@ -1,4 +1,4 @@
-import { Select, Menu } from "antd";
+import { Menu, Cascader } from "antd";
 import { useState } from "react";
 import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
 import {
@@ -8,38 +8,45 @@ import {
 } from "./CountryCharts";
 import "./App.css";
 
-const { Option } = Select;
-
 const Country = () => {
   const [current, setCurrent] = useState("1");
-  const [countryCurrent, setCountryCurrent] = useState("China");
+  const [countryCurrent, setCountryCurrent] = useState(['China', 'Beijing']);
 
-  console.log(countryCurrent);
   const component = {
     1: <AddColumnChart />,
     2: <SumColumnChart />,
     3: <ProportionLineChart />,
   };
+
+
   const options = [
     {
-      value: "America",
-      name: "美国",
+      value: 'America',
+      label: '美国',
+      children: [
+        {
+          value: 'California',
+          label: '加利福尼亚',
+        },
+        {
+          value: 'Florida',
+          label: '佛罗里达'
+        }
+      ],
     },
     {
-      value: "Japan",
-      name: "日本",
-    },
-    {
-      value: "India",
-      name: "印度",
-    },
-    {
-      value: "China",
-      name: "中国",
-    },
-    {
-      value: "Korea",
-      name: "韩国",
+      value: 'China',
+      label: '中国',
+      children: [
+        {
+          value: 'Beijing',
+          label: '北京',
+        },
+        {
+          value: 'Shanghai',
+          label: '上海',
+        },
+      ],
     },
   ];
 
@@ -84,30 +91,7 @@ const Country = () => {
 
   const SelectCountry = () => {
     return (
-      <Select
-        showSearch
-        placeholder="请选择您要查询的国家"
-        optionFilterProp="children"
-        filterOption={(input, option) =>
-          option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-        }
-        filterSort={(optionA, optionB) =>
-          optionA.children
-            .toLowerCase()
-            .localeCompare(optionB.children.toLowerCase())
-        }
-        className="select-box"
-        defaultValue={countryCurrent}
-        onSelect={(e) => {
-          setCountryCurrent(e);
-        }}
-      >
-        {options.map((option, index) => (
-          <Option key={index} value={option.value}>
-            {option.name}
-          </Option>
-        ))}
-      </Select>
+      <Cascader options={options} onChange={(e) => { setCountryCurrent(e); console.log(e) }} defaultValue={countryCurrent} placeholder="请选择国家/省份" />
     );
   };
 
