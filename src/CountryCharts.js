@@ -96,46 +96,48 @@ const SumColumnOption = {
   ],
 };
 
-const lineOption = {
-  legend: { data: ["发病率", "治愈率", "死亡率"] },
-  xAxis: {
-    type: "category",
-    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    name: "日期",
-    nameTextStyle: {
-      fontWeight: 600,
-      fontSize: 18,
-    },
-  },
-  yAxis: {
-    type: "value",
-    name: "比率",
-    nameTextStyle: {
-      fontWeight: 600,
-      fontSize: 18,
-    },
-  },
-  tooltip: {},
-  series: [
-    {
-      name: "发病率",
-      data: [820, 932, 901, 934, 1290, 1330, 1320],
-      type: "line",
-    },
-    {
-      name: "治愈率",
-      data: [620, 711, 823, 934, 1445, 1456, 1178],
-      type: "line",
-    },
-    {
-      name: "死亡率",
-      data: [612, 920, 1140, 1160, 1190, 1234, 1321],
-      type: "line",
-    },
-  ],
-};
+// const lineOption = {
+//   legend: { data: ["发病率", "治愈率", "死亡率"] },
+//   xAxis: {
+//     type: "category",
+//     data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+//     name: "日期",
+//     nameTextStyle: {
+//       fontWeight: 600,
+//       fontSize: 18,
+//     },
+//   },
+//   yAxis: {
+//     type: "value",
+//     name: "比率",
+//     nameTextStyle: {
+//       fontWeight: 600,
+//       fontSize: 18,
+//     },
+//   },
+//   tooltip: {},
+//   series: [
+//     {
+//       name: "发病率",
+//       data: [820, 932, 901, 934, 1290, 1330, 1320],
+//       type: "line",
+//     },
+//     {
+//       name: "治愈率",
+//       data: [620, 711, 823, 934, 1445, 1456, 1178],
+//       type: "line",
+//     },
+//     {
+//       name: "死亡率",
+//       data: [612, 920, 1140, 1160, 1190, 1234, 1321],
+//       type: "line",
+//     },
+//   ],
+// };
 
-export const ProportionLineChart = () => {
+
+export const ProportionLineChart = (lineOption) => {
+  console.log(lineOption);
   return (
     <div className="line-chart">
       <ReactEcharts option={lineOption} />

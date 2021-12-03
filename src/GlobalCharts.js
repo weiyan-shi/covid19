@@ -40,6 +40,7 @@ const lineOption = {
   ],
 };
 
+
 const cakeOption = {
   tooltip: {
     show: true,
@@ -215,6 +216,8 @@ const columns = [
     key: "heal",
   },
 ];
+
+
 
 export const AddLineChart = () => {
   return (

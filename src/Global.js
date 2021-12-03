@@ -13,12 +13,17 @@ import "./App.css";
 const Global = () => {
   const myDate = new Date();
   const [current, setCurrent] = useState("1");
+  const apiPath = 'http://192.168.0.104:3000/api';
   const component = {
     1: <AddLineChart />,
     2: <SumColumnChart />,
     3: <ConfirmCakeChart />,
     4: <CountryList />,
   };
+
+
+
+
 
   const DataCards = () => {
     return (

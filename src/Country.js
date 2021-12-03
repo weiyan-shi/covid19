@@ -1,54 +1,84 @@
 import { Menu, Cascader } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
 import {
   ProportionLineChart,
   AddColumnChart,
   SumColumnChart,
 } from "./CountryCharts";
+import { httpPost } from './http'
 import "./App.css";
 
 const Country = () => {
   const [current, setCurrent] = useState("1");
   const [countryCurrent, setCountryCurrent] = useState(['China', 'Beijing']);
+  const apiPath = 'http://192.168.0.104:3000/api';
+  const [options, setOptions] = useState([]);
+  const [lineOption, setLineOption] = useState({});
+
+  useEffect(() => {
+    getSelectedOptions();
+    getCountryLineOptions();
+  }, []);
+
+  const getSelectedOptions = () => {
+    httpPost(apiPath + '/getSelectedOptions', {}).then((response) => {
+      return response.json();
+    }).then((data) => {
+      setOptions(data);
+    }).catch(function (err) {
+      console.log(err)
+    })
+  };
+
+  const getCountryLineOptions = () => {
+    httpPost(apiPath + '/getCountryLineOptions', countryCurrent).then((response) => {
+      return response.json();
+    }).then((data) => {
+      setLineOption(data);
+    }).catch(function (err) {
+      console.log(err)
+    })
+  }
 
   const component = {
     1: <AddColumnChart />,
     2: <SumColumnChart />,
-    3: <ProportionLineChart />,
+    3: <ProportionLineChart {...lineOption} />,
   };
 
 
-  const options = [
-    {
-      value: 'America',
-      label: '美国',
-      children: [
-        {
-          value: 'California',
-          label: '加利福尼亚',
-        },
-        {
-          value: 'Florida',
-          label: '佛罗里达'
-        }
-      ],
-    },
-    {
-      value: 'China',
-      label: '中国',
-      children: [
-        {
-          value: 'Beijing',
-          label: '北京',
-        },
-        {
-          value: 'Shanghai',
-          label: '上海',
-        },
-      ],
-    },
-  ];
+  // const options = [
+  //   {
+  //     value: 'America',
+  //     label: '美国',
+  //     children: [
+  //       {
+  //         value: 'California',
+  //         label: '加利福尼亚',
+  //       },
+  //       {
+  //         value: 'Florida',
+  //         label: '佛罗里达'
+  //       }
+  //     ],
+  //   },
+  //   {
+  //     value: 'China',
+  //     label: '中国',
+  //     children: [
+  //       {
+  //         value: 'Beijing',
+  //         label: '北京',
+  //       },
+  //       {
+  //         value: 'Shanghai',
+  //         label: '上海',
+  //       },
+  //     ],
+  //   },
+  // ];
+
 
   const HorizontalMenu = () => {
     return (
