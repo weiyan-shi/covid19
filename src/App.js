@@ -5,6 +5,8 @@ import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
 import "./App.css";
 import Global from "./Global";
 import Country from "./Country";
+import { init } from '@rematch/core'
+import * as models from './models'
 
 const App = () => {
   const [globalVisible, setGlobalVisible] = useState(true);
