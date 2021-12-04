@@ -1,5 +1,5 @@
 import { Menu } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
 import { Card } from "antd";
 import {
@@ -8,66 +8,25 @@ import {
   SumColumnChart,
   CountryList,
 } from "./GlobalCharts";
-import { httpPost } from './http'
 import "./App.css";
 
-const Global = () => {
+const Global = (props) => {
+  const {
+    globalAddOptions,
+    globalCakeOptions,
+    globalSumOptions,
+    globalCountriesList,
+  } = props;
+  console.log(globalCountriesList);
   const myDate = new Date();
   const [current, setCurrent] = useState("1");
-  const apiPath = 'http://192.168.0.104:3000/api';
   const component = {
-    1: <AddLineChart />,
-    2: <SumColumnChart />,
-    3: <ConfirmCakeChart />,
-    4: <CountryList />,
+    1: <AddLineChart {...globalAddOptions} />,
+    2: <SumColumnChart {...globalCakeOptions} />,
+    3: <ConfirmCakeChart {...globalSumOptions} />,
+    4: <CountryList dataSource={globalCountriesList} />,
   };
 
-  useEffect(() => {
-    getGlobalAddOptions();
-    getGlobalCakeOptions();
-    getGlobalSumOptions();
-    getGlobalCountriesList();
-  }, [])
-
-  const getGlobalAddOptions = () => {
-    httpPost(apiPath + '/getGlobalAddOptions', {}).then((response) => {
-      return response.json();
-    }).then((data) => {
-      setOptions(data);
-    }).catch(function (err) {
-      console.log(err)
-    })
-  };
-
-  const getGlobalCakeOptions = () => {
-    httpPost(apiPath + '/getGlobalCakeOptions', {}).then((response) => {
-      return response.json();
-    }).then((data) => {
-      setOptions(data);
-    }).catch(function (err) {
-      console.log(err)
-    })
-  };
-
-  const getGlobalSumOptions = () => {
-    httpPost(apiPath + '/getGlobalSumOptions', {}).then((response) => {
-      return response.json();
-    }).then((data) => {
-      setOptions(data);
-    }).catch(function (err) {
-      console.log(err)
-    })
-  };
-
-  const getGlobalCountriesList = () => {
-    httpPost(apiPath + '/getGlobalCountriesList', {}).then((response) => {
-      return response.json();
-    }).then((data) => {
-      setOptions(data);
-    }).catch(function (err) {
-      console.log(err)
-    })
-  };
 
 
   const DataCards = () => {
@@ -146,5 +105,6 @@ const Global = () => {
     </div>
   );
 };
+
 
 export default Global;

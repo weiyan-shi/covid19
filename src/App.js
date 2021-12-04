@@ -1,14 +1,30 @@
-import { useState } from "react";
-import { PageHeader } from "antd";
-import { Menu } from "antd";
+import { PageHeader, Menu } from "antd";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
 import "./App.css";
 import Global from "./Global";
 import Country from "./Country";
-import { init } from '@rematch/core'
-import * as models from './models'
 
-const App = () => {
+const App = (props) => {
+  const {
+    globalAddOptions,
+    globalCakeOptions,
+    globalSumOptions,
+    globalCountriesList,
+    getGlobalAddOptions,
+    getGlobalCakeOptions,
+    getGlobalSumOptions,
+    getGlobalCountriesList,
+  } = props;
+
+  useEffect(() => {
+    getGlobalAddOptions();
+    getGlobalCakeOptions();
+    getGlobalSumOptions();
+    getGlobalCountriesList();
+  }, [])
+
   const [globalVisible, setGlobalVisible] = useState(true);
   const [current, setCurrent] = useState("1");
 
@@ -48,10 +64,26 @@ const App = () => {
       />
       <div className="main-wrapper">
         <LeftMenu />
-        {globalVisible ? <Global /> : <Country />}
+        {globalVisible ? <Global globalAddOptions={globalAddOptions} globalCakeOptions={globalCakeOptions} globalSumOptions={globalSumOptions} globalCountriesList={globalCountriesList} /> : <Country />}
       </div>
     </div>
   );
 };
 
-export default App;
+const mapState = state => {
+  return {
+    globalAddOptions: state.covid.globalAddOptions,
+    globalCakeOptions: state.covid.globalCakeOptions,
+    globalSumOptions: state.covid.globalSumOptions,
+    globalCountriesList: state.covid.globalCountriesList
+  }
+}
+
+const mapDispatch = dispatch => ({
+  getGlobalAddOptions: () => dispatch.covid.getGlobalAddOptions(),
+  getGlobalCakeOptions: () => dispatch.covid.getGlobalCakeOptions(),
+  getGlobalSumOptions: () => dispatch.covid.getGlobalSumOptions(),
+  getGlobalCountriesList: () => dispatch.covid.getGlobalCountriesList(),
+})
+
+export default connect(mapState, mapDispatch)(App);
