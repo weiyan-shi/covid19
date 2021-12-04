@@ -1,5 +1,5 @@
 import { Menu } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
 import { Card } from "antd";
 import {
@@ -8,6 +8,7 @@ import {
   SumColumnChart,
   CountryList,
 } from "./GlobalCharts";
+import { httpPost } from './http'
 import "./App.css";
 
 const Global = () => {
@@ -21,8 +22,52 @@ const Global = () => {
     4: <CountryList />,
   };
 
+  useEffect(() => {
+    getGlobalAddOptions();
+    getGlobalCakeOptions();
+    getGlobalSumOptions();
+    getGlobalCountriesList();
+  }, [])
 
+  const getGlobalAddOptions = () => {
+    httpPost(apiPath + '/getGlobalAddOptions', {}).then((response) => {
+      return response.json();
+    }).then((data) => {
+      setOptions(data);
+    }).catch(function (err) {
+      console.log(err)
+    })
+  };
 
+  const getGlobalCakeOptions = () => {
+    httpPost(apiPath + '/getGlobalCakeOptions', {}).then((response) => {
+      return response.json();
+    }).then((data) => {
+      setOptions(data);
+    }).catch(function (err) {
+      console.log(err)
+    })
+  };
+
+  const getGlobalSumOptions = () => {
+    httpPost(apiPath + '/getGlobalSumOptions', {}).then((response) => {
+      return response.json();
+    }).then((data) => {
+      setOptions(data);
+    }).catch(function (err) {
+      console.log(err)
+    })
+  };
+
+  const getGlobalCountriesList = () => {
+    httpPost(apiPath + '/getGlobalCountriesList', {}).then((response) => {
+      return response.json();
+    }).then((data) => {
+      setOptions(data);
+    }).catch(function (err) {
+      console.log(err)
+    })
+  };
 
 
   const DataCards = () => {

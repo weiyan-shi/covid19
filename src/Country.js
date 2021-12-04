@@ -18,8 +18,13 @@ const Country = () => {
 
   useEffect(() => {
     getSelectedOptions();
+  }, [])
+
+  useEffect(() => {
+    getCountryAddOptions();
+    getCountrySumOptions();
     getCountryLineOptions();
-  }, []);
+  }, [countryCurrent]);
 
   const getSelectedOptions = () => {
     httpPost(apiPath + '/getSelectedOptions', {}).then((response) => {
@@ -39,7 +44,27 @@ const Country = () => {
     }).catch(function (err) {
       console.log(err)
     })
-  }
+  };
+
+  const getCountryAddOptions = () => {
+    httpPost(apiPath + '/getCountryAddOptions', countryCurrent).then((response) => {
+      return response.json();
+    }).then((data) => {
+      setLineOption(data);
+    }).catch(function (err) {
+      console.log(err)
+    })
+  };
+
+  const getCountrySumOptions = () => {
+    httpPost(apiPath + '/getCountrySumOptions', countryCurrent).then((response) => {
+      return response.json();
+    }).then((data) => {
+      setLineOption(data);
+    }).catch(function (err) {
+      console.log(err)
+    })
+  };
 
   const component = {
     1: <AddColumnChart />,
