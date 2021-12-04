@@ -9,7 +9,12 @@ export const covid = {
         globalAddOptions: {},
         globalCakeOptions: {},
         globalSumOptions: {},
-        globalCountriesList: []
+        globalCountriesList: [],
+        currentCountry: ['China', 'Beijing'],
+        options: [],
+        countryAddOptions: {},
+        countrySumOptions: {},
+        countryLineOptions: {}
     },
     reducers: {
         updateState(state, id, payload) {
@@ -51,11 +56,46 @@ export const covid = {
             httpPost(apiPath + '/getGlobalCountriesList', {}).then((response) => {
                 return response.json();
             }).then((data) => {
-                console.log(data);
                 this.updateState('globalCountriesList', data);
             }).catch(function (err) {
                 console.log(err)
             })
+        },
+        async getSelectedOptions() {
+            httpPost(apiPath + '/getSelectedOptions', {}).then((response) => {
+                return response.json();
+            }).then((data) => {
+                this.updateState('options', data);
+            }).catch(function (err) {
+                console.log(err)
+            })
+        },
+        async getCountryLineOptions(currentCountry) {
+            httpPost(apiPath + '/getCountryLineOptions', currentCountry).then((response) => {
+                return response.json();
+            }).then((data) => {
+                this.updateState('countryLineOptions', data);
+            }).catch(function (err) {
+                console.log(err)
+            })
+        },
+        async getCountryAddOptions(currentCountry) {
+            httpPost(apiPath + '/getCountryAddOptions', currentCountry).then((response) => {
+                return response.json();
+            }).then((data) => {
+                this.updateState('countryAddOptions', data);
+            }).catch(function (err) {
+                console.log(err)
+            })
+        },
+        async getCountrySumOptions(currentCountry) {
+            httpPost(apiPath + '/getCountrySumOptions', currentCountry).then((response) => {
+                return response.json();
+            }).then((data) => {
+                this.updateState('countrySumOptions', data);
+            }).catch(function (err) {
+                console.log(err)
+            })
         }
-    }
+    },
 }

@@ -5,6 +5,7 @@ export const httpGet = (url) => {
 }
 // 封装post请求
 export const httpPost = (url, data) => {
+    console.log(data);
     var result = fetch(url, {
         method: 'post',
         headers: {

@@ -17,7 +17,6 @@ const Global = (props) => {
     globalSumOptions,
     globalCountriesList,
   } = props;
-  console.log(globalCountriesList);
   const myDate = new Date();
   const [current, setCurrent] = useState("1");
   const component = {
