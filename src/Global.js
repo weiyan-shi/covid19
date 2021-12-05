@@ -2,6 +2,8 @@ import { Menu } from "antd";
 import { useState } from "react";
 import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
 import { Card } from "antd";
+import { DatePicker } from 'antd';
+import moment from 'moment';
 import {
   AddLineChart,
   ConfirmCakeChart,
@@ -10,14 +12,19 @@ import {
 } from "./GlobalCharts";
 import "./App.css";
 
+const dateFormat = 'YYYY-MM-DD';
+
 const Global = (props) => {
   const {
+    globalBasicInfo,
     globalAddOptions,
     globalCakeOptions,
     globalSumOptions,
     globalCountriesList,
+    updateState,
+    currentDate
   } = props;
-  const myDate = new Date();
+
   const [current, setCurrent] = useState("1");
   const component = {
     1: <AddLineChart {...globalAddOptions} />,
@@ -26,22 +33,20 @@ const Global = (props) => {
     4: <CountryList dataSource={globalCountriesList} />,
   };
 
-
-
   const DataCards = () => {
     return (
       <div className="site-card-wrapper">
         <Card title="时间" bordered={false}>
-          {myDate.toLocaleDateString()}
+          <DatePicker defaultValue={moment(currentDate, dateFormat)} onChange={(value, dateString) => { updateState('currentDate', dateString) }} allowClear={false} />
         </Card>
         <Card title="累计确诊" bordered={false}>
-          3000
+          {globalBasicInfo && globalBasicInfo['confirm']}
         </Card>
         <Card title="累计治愈" bordered={false}>
-          2000
+          {globalBasicInfo && globalBasicInfo['heal']}
         </Card>
         <Card title="累计死亡" bordered={false}>
-          1000
+          {globalBasicInfo && globalBasicInfo['dead']}
         </Card>
       </div>
     );

@@ -8,6 +8,7 @@ import Country from "./Country";
 
 const App = (props) => {
   const {
+    globalBasicInfo,
     globalAddOptions,
     globalCakeOptions,
     globalSumOptions,
@@ -17,6 +18,7 @@ const App = (props) => {
     getGlobalSumOptions,
     getGlobalCountriesList,
     currentCountry,
+    currentDate,
     options,
     countryAddOptions,
     countrySumOptions,
@@ -25,16 +27,21 @@ const App = (props) => {
     getCountryLineOptions,
     getCountryAddOptions,
     getCountrySumOptions,
+    getGlobalBasicInfo,
     updateState
   } = props;
 
   useEffect(() => {
-    getGlobalAddOptions();
-    getGlobalCakeOptions();
-    getGlobalSumOptions();
-    getGlobalCountriesList();
+    getGlobalAddOptions(currentDate);
+    getGlobalCakeOptions(currentDate);
+    getGlobalSumOptions(currentDate);
+    getGlobalCountriesList(currentDate);
+    getGlobalBasicInfo(currentDate);
+  }, [currentDate]);
+
+  useEffect(() => {
     getSelectedOptions();
-  }, []);
+  }, [])
 
 
   useEffect(() => {
@@ -82,7 +89,7 @@ const App = (props) => {
       />
       <div className="main-wrapper">
         <LeftMenu />
-        {globalVisible ? <Global globalAddOptions={globalAddOptions} globalCakeOptions={globalCakeOptions} globalSumOptions={globalSumOptions} globalCountriesList={globalCountriesList} /> : <Country options={options} countryAddOptions={countryAddOptions} countrySumOptions={countrySumOptions} countryLineOptions={countryLineOptions} updateState={updateState} currentCountry={currentCountry} />}
+        {globalVisible ? <Global globalAddOptions={globalAddOptions} globalCakeOptions={globalCakeOptions} globalSumOptions={globalSumOptions} globalCountriesList={globalCountriesList} globalBasicInfo={globalBasicInfo} updateState={updateState} currentDate={currentDate} /> : <Country options={options} countryAddOptions={countryAddOptions} countrySumOptions={countrySumOptions} countryLineOptions={countryLineOptions} updateState={updateState} currentCountry={currentCountry} />}
       </div>
     </div>
   );
@@ -99,19 +106,22 @@ const mapState = state => {
     countryAddOptions: state.covid.countryAddOptions,
     countrySumOptions: state.covid.countrySumOptions,
     countryLineOptions: state.covid.countryLineOptions,
+    currentDate: state.covid.currentDate,
+    globalBasicInfo: state.covid.globalBasicInfo
   }
 }
 
 const mapDispatch = dispatch => ({
-  getGlobalAddOptions: () => dispatch.covid.getGlobalAddOptions(),
-  getGlobalCakeOptions: () => dispatch.covid.getGlobalCakeOptions(),
-  getGlobalSumOptions: () => dispatch.covid.getGlobalSumOptions(),
-  getGlobalCountriesList: () => dispatch.covid.getGlobalCountriesList(),
+  getGlobalAddOptions: (date) => dispatch.covid.getGlobalAddOptions(date),
+  getGlobalCakeOptions: (date) => dispatch.covid.getGlobalCakeOptions(date),
+  getGlobalSumOptions: (date) => dispatch.covid.getGlobalSumOptions(date),
+  getGlobalCountriesList: (date) => dispatch.covid.getGlobalCountriesList(date),
   getSelectedOptions: () => dispatch.covid.getSelectedOptions(),
   getCountryLineOptions: (currentCountry) => dispatch.covid.getCountryLineOptions(currentCountry),
   getCountryAddOptions: (currentCountry) => dispatch.covid.getCountryAddOptions(currentCountry),
   getCountrySumOptions: (currentCountry) => dispatch.covid.getCountrySumOptions(currentCountry),
-  updateState: (id, payload) => dispatch.covid.updateState(id, payload)
+  updateState: (id, payload) => dispatch.covid.updateState(id, payload),
+  getGlobalBasicInfo: (date) => dispatch.covid.getGlobalBasicInfo(date)
 })
 
 export default connect(mapState, mapDispatch)(App);
