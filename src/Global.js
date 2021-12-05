@@ -21,8 +21,8 @@ const Global = (props) => {
   const [current, setCurrent] = useState("1");
   const component = {
     1: <AddLineChart {...globalAddOptions} />,
-    2: <SumColumnChart {...globalCakeOptions} />,
-    3: <ConfirmCakeChart {...globalSumOptions} />,
+    2: <SumColumnChart {...globalSumOptions} />,
+    3: <ConfirmCakeChart {...globalCakeOptions} />,
     4: <CountryList dataSource={globalCountriesList} />,
   };
 
