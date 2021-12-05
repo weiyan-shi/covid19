@@ -16,7 +16,8 @@ export const covid = {
     options: [],
     countryAddOptions: {},
     countrySumOptions: {},
-    countryLineOptions: {}
+    countryLineOptions: {},
+    currentCountryDate: '2021-3-20',
   },
   reducers: {
     updateState(state, id, payload) {
@@ -81,8 +82,8 @@ export const covid = {
         console.log(err)
       })
     },
-    async getCountryLineOptions(currentCountry) {
-      httpPost(apiPath + '/getCountryLineOptions', currentCountry).then((response) => {
+    async getCountryLineOptions({ country, date }) {
+      httpPost(apiPath + '/getCountryLineOptions', { country: country, date: date }).then((response) => {
         return response.json();
       }).then((data) => {
         this.updateState('countryLineOptions', data);
@@ -90,8 +91,8 @@ export const covid = {
         console.log(err)
       })
     },
-    async getCountryAddOptions(currentCountry) {
-      httpPost(apiPath + '/getCountryAddOptions', currentCountry).then((response) => {
+    async getCountryAddOptions({ country, date }) {
+      httpPost(apiPath + '/getCountryAddOptions', { country: country, date: date }).then((response) => {
         return response.json();
       }).then((data) => {
         this.updateState('countryAddOptions', data);
@@ -99,8 +100,8 @@ export const covid = {
         console.log(err)
       })
     },
-    async getCountrySumOptions(currentCountry) {
-      httpPost(apiPath + '/getCountrySumOptions', currentCountry).then((response) => {
+    async getCountrySumOptions({ country, date }) {
+      httpPost(apiPath + '/getCountrySumOptions', { country: country, date: date }).then((response) => {
         return response.json();
       }).then((data) => {
         this.updateState('countrySumOptions', data);

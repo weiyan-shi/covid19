@@ -1,4 +1,4 @@
-import { Menu, Cascader } from "antd";
+import { Menu, Cascader, DatePicker } from "antd";
 import { useState } from "react";
 import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
 import {
@@ -6,7 +6,10 @@ import {
   AddColumnChart,
   SumColumnChart,
 } from "./CountryCharts";
+import moment from 'moment';
 import "./App.css";
+
+const dateFormat = 'YYYY-MM-DD';
 
 const Country = (props) => {
   const {
@@ -15,7 +18,8 @@ const Country = (props) => {
     countryAddOptions,
     countrySumOptions,
     countryLineOptions,
-    updateState
+    updateState,
+    currentCountryDate
   } = props;
   const [current, setCurrent] = useState("1");
   const component = {
@@ -71,7 +75,10 @@ const Country = (props) => {
 
   return (
     <div className="Country">
-      <SelectCountry />
+      <div className="top-wrapper">
+        <SelectCountry />
+        <DatePicker defaultValue={moment(currentCountryDate, dateFormat)} onChange={(value, dateString) => { updateState('currentCountryDate', dateString) }} allowClear={false} />
+      </div>
       <HorizontalMenu />
       {component[current]}
     </div>

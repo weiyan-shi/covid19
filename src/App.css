@@ -66,3 +66,9 @@
   width: calc(80% / 3);
   text-align: center;
 }
+
+.top-wrapper{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
