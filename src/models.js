@@ -1,7 +1,8 @@
-import { httpPost } from './http'
+import { httpGet, httpPost, GET, POST } from './http'
+import { mock_news, mock_newsDetail, mock_videos } from './mock';
 
 
-const apiPath = 'http://192.168.0.104:3000/api';
+const apiPath = 'http://127.0.0.1:3000/api';
 
 
 export const covid = {
@@ -18,6 +19,9 @@ export const covid = {
     countrySumOptions: {},
     countryLineOptions: {},
     currentCountryDate: '2021-3-20',
+    news: {},
+    newsDetail: {},
+    videos: {}
   },
   reducers: {
     updateState(state, id, payload) {
@@ -105,6 +109,33 @@ export const covid = {
         return response.json();
       }).then((data) => {
         this.updateState('countrySumOptions', data);
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    async queryNews({ keyword, page, pageSize }) {
+      httpGet(apiPath + '/queryNews', { keyword: keyword, page: page, pageSize: pageSize }).then((response) => {
+        return response.json();
+      }).then((data) => {
+        this.updateState('news', data);
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    async getNews({ id }) {
+      httpGet(apiPath + '/getNews', { id: id }).then((response) => {
+        return response.json();
+      }).then((data) => {
+        this.updateState('newsDetail', data);
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    async queryVideo({ keyword, page, pageSize }) {
+      httpGet(apiPath + '/queryVideo', { keyword: keyword, page: page, pageSize: pageSize }).then((response) => {
+        return response.json();
+      }).then((data) => {
+        this.updateState('videos', data);
       }).catch(function (err) {
         console.log(err)
       })

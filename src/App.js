@@ -5,6 +5,8 @@ import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
 import "./App.css";
 import Global from "./Global";
 import Country from "./Country";
+import News from './News';
+import Videos from "./Videos";
 
 const App = props => {
   const {
@@ -30,6 +32,12 @@ const App = props => {
     getCountrySumOptions,
     getGlobalBasicInfo,
     updateState,
+    news,
+    newsDetail,
+    videos,
+    queryNews,
+    getNews,
+    queryVideo
   } = props;
 
 
@@ -52,8 +60,16 @@ const App = props => {
     getCountrySumOptions({ country: currentCountry, date: currentCountryDate });
   }, [currentCountry, currentCountryDate])
 
-  const [globalVisible, setGlobalVisible] = useState(true);
   const [current, setCurrent] = useState("1");
+
+  const component = {
+    1: <Global globalAddOptions={globalAddOptions} globalCakeOptions={globalCakeOptions} globalSumOptions={globalSumOptions} globalCountriesList={globalCountriesList} globalBasicInfo={globalBasicInfo} updateState={updateState} currentDate={currentDate} />,
+    2: <Country options={options} countryAddOptions={countryAddOptions} countrySumOptions={countrySumOptions} countryLineOptions={countryLineOptions} updateState={updateState} currentCountry={currentCountry} currentCountryDate={currentCountryDate} />,
+    3: <News news={news} newsDetail={newsDetail} queryNews={queryNews} getNews={getNews} />,
+    4: <Videos videos={videos} queryVideo={queryVideo} />,
+  };
+
+
 
   const LeftMenu = () => {
     return (
@@ -62,7 +78,6 @@ const App = props => {
           key="1"
           icon={<MailOutlined />}
           onClick={(e) => {
-            setGlobalVisible(true);
             setCurrent(e.key);
           }}
         >
@@ -72,11 +87,28 @@ const App = props => {
           key="2"
           icon={<AppstoreOutlined />}
           onClick={(e) => {
-            setGlobalVisible(false);
             setCurrent(e.key);
           }}
         >
           各国疫情数据
+        </Menu.Item>
+        <Menu.Item
+          key="3"
+          icon={<AppstoreOutlined />}
+          onClick={(e) => {
+            setCurrent(e.key);
+          }}
+        >
+          新闻
+        </Menu.Item>
+        <Menu.Item
+          key="4"
+          icon={<AppstoreOutlined />}
+          onClick={(e) => {
+            setCurrent(e.key);
+          }}
+        >
+          视频
         </Menu.Item>
       </Menu>
     );
@@ -91,7 +123,7 @@ const App = props => {
       />
       <div className="main-wrapper">
         <LeftMenu />
-        {globalVisible ? <Global globalAddOptions={globalAddOptions} globalCakeOptions={globalCakeOptions} globalSumOptions={globalSumOptions} globalCountriesList={globalCountriesList} globalBasicInfo={globalBasicInfo} updateState={updateState} currentDate={currentDate} /> : <Country options={options} countryAddOptions={countryAddOptions} countrySumOptions={countrySumOptions} countryLineOptions={countryLineOptions} updateState={updateState} currentCountry={currentCountry} currentCountryDate={currentCountryDate} />}
+        {component[current]}
       </div>
     </div>
   );
@@ -110,7 +142,10 @@ const mapState = state => {
     countryLineOptions: state.covid.countryLineOptions,
     currentDate: state.covid.currentDate,
     globalBasicInfo: state.covid.globalBasicInfo,
-    currentCountryDate: state.covid.currentCountryDate
+    currentCountryDate: state.covid.currentCountryDate,
+    news: state.covid.news,
+    newsDetail: state.covid.newsDetail,
+    videos: state.covid.videos
   }
 }
 
@@ -124,7 +159,10 @@ const mapDispatch = dispatch => ({
   getCountryAddOptions: ({ country, date }) => dispatch.covid.getCountryAddOptions({ country, date }),
   getCountrySumOptions: ({ country, date }) => dispatch.covid.getCountrySumOptions({ country, date }),
   updateState: (id, payload) => dispatch.covid.updateState(id, payload),
-  getGlobalBasicInfo: (date) => dispatch.covid.getGlobalBasicInfo(date)
+  getGlobalBasicInfo: (date) => dispatch.covid.getGlobalBasicInfo(date),
+  queryNews: ({ keyword, page, pageSize }) => dispatch.covid.queryNews({ keyword, page, pageSize }),
+  getNews: ({ id }) => dispatch.covid.getNews({ id }),
+  queryVideo: ({ keyword, page, pageSize }) => dispatch.covid.queryVideo({ keyword, page, pageSize })
 })
 
 export default connect(mapState, mapDispatch)(App);

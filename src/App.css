@@ -72,3 +72,23 @@
   display: flex;
   justify-content: space-around;
 }
+
+.News{
+  width: calc(100% - 256px);
+  padding: 0 20px 0 20px;
+}
+
+.news-li{
+  display: flex;
+  justify-content: space-around;
+}
+
+.Videos{
+  width: calc(100% - 256px);
+  padding: 0 20px 0 20px;
+}
+
+.video-li{
+  display: flex;
+  justify-content: space-around;
+}
