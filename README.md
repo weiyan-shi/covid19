@@ -4,7 +4,7 @@
 ```bash
 $ java -jar web-spring-1.0-SNAPSHOT.jar
 ```
-启动后端服务，可以上http://127.0.0.1:3000/api/swagger-ui.html#/web_api查看自己的接口
+启动后端服务，可以上http://127.0.0.1:3000/api/swagger-ui.html#/web_api 查看自己的接口
 
 ## 前端修改api路径
 * 打开src/model.js
